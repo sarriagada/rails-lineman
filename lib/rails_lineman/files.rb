@@ -1,5 +1,5 @@
 module RailsLineman
-  class Page
+  class Files
     def initialize(config, descriptor)
       @descriptor = "#{descriptor.strip}.html"
       @source = File.join(config.lineman_project_location, "dist", @descriptor)
