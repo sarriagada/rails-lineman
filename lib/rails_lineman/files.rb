@@ -1,8 +1,7 @@
 module RailsLineman
   class Files
-    def initialize(config, descriptor)
-      @descriptor = "#{descriptor.strip}.html"
-      @source = File.join(config.lineman_project_location, "dist", @descriptor)
+    def initialize(config)
+      @source = File.join(config.lineman_project_location, "dist",".")
       @destination = determine_destination(config)
     end
 
@@ -13,7 +12,7 @@ module RailsLineman
     end
 
     def copy
-      FileUtils.cp(@source, @destination)
+      FileUtils.cp_r(@source, @destination)
     end
 
     def delete
@@ -24,7 +23,7 @@ module RailsLineman
 
     def determine_destination(config)
       if config.deployment_method == :copy_files_to_public_folder
-        Rails.root.join(File.join(*["public", @descriptor].compact))
+        Rails.root.join(File.join(*["public"].compact))
       end
     end
 

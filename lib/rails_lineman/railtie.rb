@@ -5,7 +5,6 @@ module RailsLineman
     config.rails_lineman.lineman_project_location = ENV['LINEMAN_PROJECT_LOCATION']
     config.rails_lineman.lineman_project_namespace = nil
     config.rails_lineman.lineman_assets = ENV['LINEMAN_ASSETS'] || [:js, :css]
-    config.rails_lineman.lineman_pages = ENV['LINEMAN_PAGES'] || [:index]
     config.rails_lineman.remove_lineman_assets_after_asset_pipeline_precompilation = false
     config.rails_lineman.skip_build = false
     config.rails_lineman.deployment_method = :asset_pipeline# :copy_files_to_public_folder or :asset_pipeline
@@ -32,7 +31,7 @@ module RailsLineman
       config = Rails.application.config.rails_lineman
 
       if(config.deployment_method == :copy_files_to_public_folder && Rails.env == 'production' && !config.skip_build)
-        if !Dir[Rails.root.join('public/*')].include?(Rails.root.join('public/index.html').to_s)
+        if !Dir[Rails.root.join('public/*')].include?(Rails.root.join('public/index.html').to_s) # avoid copy the files more than once
           if config.lineman_project_location.present?
             lineman_doer = RailsLineman::MetaLinemanDoer.new(config)
             lineman_doer.copy_files
