@@ -78,7 +78,7 @@ module RailsLineman
     end
 
     def install_node_js_on_heroku
-      return unless heroku? && !ENV['PATH'].include?("#{Dir.pwd}/heroku_node_install/bin")
+      #return unless heroku? && !ENV['PATH'].include?("#{Dir.pwd}/heroku_node_install/bin")
       puts "It looks like we're on heroku, so let's install Node.js"
       system <<-BASH
         node_version=$(curl --silent --get https://semver.io/node/resolve)
